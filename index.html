@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="https://cdn.bootcss.com/jquery/1.7/jquery.min.js"></script>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			html,body{
+				width: 100%;
+				height: 98%;
+			}
+			body{
+				background-color: #000;
+			}
+			#container{
+				top: 3%;
+				left: 10%;
+				position: relative;
+				width: 75%;
+				height: 100%;
+				overflow: hidden;
+			}
+				#imgBox{
+					width: 800%;
+					height: 100%;
+					position: absolute;
+					overflow: hidden;
+					left: -100%;
+					transition: left 0.5s linear;
+				}
+					.img-list{
+						float: left;
+						width: 12.5%;
+						height: auto;
+						z-index: 1;
+					}
+				.btn{
+					width: 42px;
+					height: 85px;
+					position: absolute;
+					z-index: 2;
+				}
+					#lastBtn{
+						top: 48%;
+						left: 2%;
+						background: url('img/btn_icon_01.png') no-repeat 1px -81px;
+						display: none;
+					}
+					#lastBtn:hover{
+						background: url('img/btn_icon_01.png') no-repeat -45px -81px;						
+					}
+					#nextBtn{
+						display: none;
+						top: 48%;
+						right: 2%;
+						background: url('img/btn_icon_01.png') no-repeat 1px 6px;	
+					}
+					#nextBtn:hover{
+						background: url('img/btn_icon_01.png') no-repeat -45px 6px;					
+					}
+					.dots{
+						position: absolute;
+						left: 0;
+						right: 0;
+						bottom: 5%;
+						z-index: 2;
+						text-align: center;
+						height: 2%;
+						display: block;
+						list-style-type: none;
+					}
+					.dot{
+						display: inline-block;
+						width: 1.2%;
+						height: 100%;
+						margin: 0 1%;
+						border: 3px solid #fff;
+						border-radius:50%;
+						cursor: pointer;
+						opacity: .4;
+					}
+					.active{
+						background: #fff;
+						opacity: 1;
+					}
+		</style>
+	</head>
+	<body>
+		<div id="container">
+			<div id="imgBox">
+				<img src="img/goddess5.jpg" alt="" class="img-list" />
+				<img src="img/goddess1.jpg" alt="" class="img-list" />
+				<img src="img/goddess2.jpg" alt="" class="img-list" />
+				<img src="img/goddess3.jpg" alt="" class="img-list" />
+				<img src="img/goddess4.jpg" alt="" class="img-list" />
+				<img src="img/goddess5.jpg" alt="" class="img-list" />
+				<img src="img/goddess1.jpg" alt="" class="img-list" />
+			</div>
+			<div class="btn" id="lastBtn"></div>
+			<div class="btn" id="nextBtn"></div>
+			<ol class="dots">
+				<li class="dot active"></li>
+				<li class="dot"></li>
+				<li class="dot"></li>
+				<li class="dot"></li>
+				<li class="dot"></li>
+			</ol>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				var $lastBtn = $('#lastBtn')
+				var $nextBtn = $('#nextBtn')
+				var $container = $('#container')
+				var $imgBox = $('#imgBox')
+				var currImgBoxLeft = -100 //设置box的left的初始值
+				var $dots = $('.dot')
+				$container.mouseenter(function(){
+					$lastBtn.css('display','block')
+					$nextBtn.css('display','block')
+				})
+				$container.mouseleave(function(){
+					$lastBtn.css('display','none')
+					$nextBtn.css('display','none')
+				})
+				$nextBtn.bind('click',function(){
+					$imgBox.css('transition','left 0.5s linear')
+					var nextImgBoxLeft = currImgBoxLeft-100
+					//检测是否为最后一张图，若是则切换到第一张，不是则切换到下一张
+					if(currImgBoxLeft > -500){
+						nextImgBoxLeft = currImgBoxLeft-100
+						currImgBoxLeft = nextImgBoxLeft
+					$imgBox.css('left',nextImgBoxLeft+"%")
+					}else{
+						nextImgBoxLeft = -100
+						currImgBoxLeft = nextImgBoxLeft
+						$imgBox.css('left',-600+"%")
+						setTimeout(function(){
+							$imgBox.css('transition','left .01s linear')
+							$imgBox.css('left',nextImgBoxLeft+'%')
+						},500)
+						
+					}
+					updateDots()
+				})
+				$lastBtn.bind('click',function(){
+					$imgBox.css('transition','left 0.5s linear')
+					if(currImgBoxLeft < -100){
+						var nextImgBoxLeft=currImgBoxLeft+100
+						currImgBoxLeft = nextImgBoxLeft
+						$imgBox.css('left',nextImgBoxLeft+"%")
+					}else{
+						nextImgBoxLeft = -500
+						currImgBoxLeft = nextImgBoxLeft
+						$imgBox.css('left',0+"%")
+						setTimeout(function(){
+							$imgBox.css('transition','left .01s linear')
+							$imgBox.css('left',nextImgBoxLeft+'%')
+						},500)						
+					}
+					updateDots()
+				})
+				function updateDots(){
+					var $dots = $('.dot')
+					$dots.removeClass('active')
+					switch(currImgBoxLeft){
+					case -100:$dots.eq(0).addClass('active')
+					break;
+					case -200:$dots.eq(1).addClass('active')
+					break;
+					case -300:$dots.eq(2).addClass('active')
+					break;
+					case -400:$dots.eq(3).addClass('active')
+					break;
+					case -500:$dots.eq(4).addClass('active')
+					break;
+					}
+				}
+				//当鼠标移入焦点图标时，切换与其对应的图片
+				$dots.mouseenter(function(){
+					var val = ($(this).index()+1)*(-100)
+					currImgBoxLeft = val
+					$imgBox.css('left',val+"%")
+					updateDots()
+				})
+			})
+		</script>
+	</body>
+</html>
