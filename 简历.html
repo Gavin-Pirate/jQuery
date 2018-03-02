@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+			.clearfix:after{
+				content:'.';
+				display: block;
+				visibility: hidden;
+				height: 0;
+				clear: both;
+			}
+			html,body{
+				background-color: rgb(51,73,89);
+				width: 100%;
+				height: 100%;
+				color: #fefefe;
+				font: 14px/20px "Microsoft Yahei",SimSun,"宋体",Arial,sans-serif;
+				
+			}
+			h1{
+				font-size: 36px;
+				font-weight: 500;
+			}
+			/*第一页*/
+			#section1{
+				position: relative;
+				width: 100%;
+				height: 100vh;
+				text-align: center;
+				overflow: hidden;
+			}
+			/*轮播背景*/
+			.bg-img{
+			    width: 100%;
+			    height: 100%;
+			    position: absolute;
+			    z-index: 1px;
+			}
+			.bg-img div{
+			    position: absolute;
+			    width: 100%;
+			    height: 100%;
+			    opacity: 0;
+			}
+			.bg-img div.show{
+				animation: fadescale 5s forwards;
+			}		
+			.bg-img div:nth-child(1){
+			    background: url("img/bg6.jpg") no-repeat center;
+			    background-size: cover;
+			}
+			.bg-img div:nth-child(2){
+				background: url("img/bg4.jpg") no-repeat center;
+				background-size: cover;
+			}
+			.bg-img div:nth-child(3){
+				background: url("img/bg5.jpg") no-repeat center;
+				background-size: cover;
+			}
+			.bg-img div:nth-child(4){
+				background: url("img/bg1.jpg") no-repeat center;
+				background-size: cover;
+			}
+			@keyframes fadescale{
+				0%{
+					opacity: 1;
+					transform: scale(1);
+				}
+				50%{
+					opacity: 1;
+					transform: scale(1.1);
+				}
+				100%{
+					opacity: 0.5;
+					transform: scale(1);
+				}
+			}
+			/*返回顶部*/
+			#top{
+			    width: 45px;
+			    height: 45px;
+			    background: rgb(44,62,80);
+			    border-radius: 5px;
+			    position: fixed;
+			    right: 20px;
+			    bottom: 10%;
+			    cursor: pointer;
+			    text-align: center;
+			    line-height: 45px;
+			    /*display: none;*/
+			    z-index: 1000;
+			    opacity: 0.6;
+			}
+			#top:hover{
+			    opacity: 1;
+			}
+			/*个人介绍*/
+			#self-introduction{
+				display: inline-block;
+			    padding: 35vh 0 0 ;
+			    position: absolute;
+			    width:100%;
+			    height: 100%;
+			    top: 0;
+			    left: 0;
+			    text-align: center;
+			    letter-spacing: 2px;
+			    transition: all 0.35s;
+			    z-index: 2;
+			}
+			#self-introduction h1{
+			    font-family: cursive,'Lato', sans-serif;
+			    font-size: 70px;
+			    font-weight: 500;
+			    margin: 50px 0 30px;
+			}
+			#self-introduction h3{
+				display: inline-block;
+			    letter-spacing: 3px;
+			    font-size: 30px;
+			    margin: 40px 0;
+			}
+			/*淡入效果*/
+			.fade{
+				transform:  translateY(2em);
+				opacity: 0;					
+			}
+			.fadeactive{
+				transition: all 1s;
+				transform:  translateY(0);
+				opacity: 1;					
+			}
+			/*导航条*/
+			#nav-bar{
+				width: 100%;
+				height: 70px;
+				background-color: rgba(0,0,0,.7);
+				color: #f5f5f5;
+			}
+			#nav-bar.fixed{
+			    position: fixed;
+			    top:0;
+			    z-index: 99;
+			}
+
+			#nav-bar .nav-container{
+				width: 100%;
+				overflow: hidden;
+				position: relative;
+				padding: 0 15px;
+				margin: 0 auto;
+			}
+			#nav-bar .nav-container a{
+				text-decoration: none;
+				color: rgb(0,106,142);
+				font-size: 20px;
+				display: inline-block;
+				line-height: 70px;
+			}
+			#nav-bar .nav-container a:hover{
+				color: rgb(177,68,32);
+			}
+			#nav-bar .nav-container ul{
+				float: right;
+			}
+			#nav-bar .nav-container li{
+				float: left;
+				font-size: 16px;
+				width: 60px;
+				line-height: 70px;
+				list-style: none;
+				text-align: center;
+				cursor: pointer;
+			}
+			#nav-bar .nav-container li:hover{
+				color: rgb(177,68,32);
+			}
+			/*第二页*/
+			#section2{
+				height: 90vh;
+				min-height: 700px;
+				width: 100%;
+				position: relative;
+				padding-bottom: 20px;
+			}
+			#section2 .container{
+				min-width: 750px;
+				max-width: 1170px;
+				margin: 0 auto;
+			}
+			.aboutMe h1 {
+				 width:100%;
+				 height:50px;
+				 margin-top:120px;
+				 text-align:center;
+				 line-height:50px
+				}
+			.aboutMe > p{
+				width: 200px;
+				height: 50px;
+				transition-timing-function: ease-in;
+				transition-duration: 400ms;
+				overflow: hidden;
+				/*width: 0;
+				height: 0;*/
+				text-align: center;
+				margin: 0 auto 6vh;
+				border-top: 2px solid brown;
+				line-height: 30px;
+			}
+			.aboutMe .table{
+				 width:85%;
+				 margin:0 auto;
+				 background-color: rgba(73,156,148,.3);
+				 border-radius:35px
+			}
+			.aboutMe .table div i {
+				 transition:1s;
+				 width:90px;
+				 height:90px;
+				 border-radius:50%;
+				 border:2px solid #fff;
+				 display:block;
+				 margin:10px auto
+			}
+			.rol{
+				width: 25%;
+				float: left;
+				position: relative;
+				min-height: 1px;
+				padding: 0 15px;
+				
+			}
+			#section2 .table div:nth-of-type(1) i{
+				background: url(img/a1.png) no-repeat center center;
+				background-size: 70%;
+			}
+			.aboutMe .table div:nth-of-type(2) i {
+				 background:url(img/a2.png) no-repeat center center;
+				 background-size:70%
+			}
+			.aboutMe .table div:nth-of-type(3) i {
+				 background:url(img/a3.png) no-repeat center center;
+				 background-size:70%
+			}
+			.aboutMe .table div:nth-of-type(4) i {
+				 background:url(img/a4.png) no-repeat center center;
+				 background-size:70%
+			}
+			.aboutMe .table div i:hover {
+				 animation:1s moveX;
+				 box-shadow:0 0 3px 5px #f1f1f1,0 0 3px 5px red
+			}
+			@keyframes moveX {
+				 0% {
+				  background-position: center center;
+				 }
+				 50% {
+				  background-position: 100px center;
+				 }
+				 51% {
+				  background-position: 100px 100px;
+				 }
+				 55% {
+				  background-position: -100px 100px;
+				 }
+				 60% {
+				  background-position: -100px center;
+				 }
+				 100% {
+				  background-position: center center;
+				 }
+			}
+			.aboutMe .table div p {
+			 height:30px;
+			 line-height:30px;
+			 padding:0;
+			 width:70%;
+			 margin:0 auto
+			}
+			.aboutMe .table div p:nth-of-type(2) {
+			 text-align:right;
+			 position:relative;
+			 margin-bottom:10px
+			}
+			.aboutMe .table div p:nth-of-type(2):before {
+			 content:"";
+			 width:100%;
+			 background-color:#f1f1f1;
+			 height:2px;
+			 display:block;
+			 top:0;
+			 left:0;
+			 transform:rotate(-20deg);
+			 position:absolute
+			}
+			.aboutMe .say {
+			 width:80%;
+			 height:150px;
+			 margin:12vh auto 30px;
+			 position:relative;
+			 padding-top:10px
+			}
+			.aboutMe .say:before {
+			 width:70px;
+			 height:70px;
+			 display:block;
+			 content:"";
+			 position:absolute;
+			 top:0;
+			 left:0;
+			 border-left:2px solid #0ff;
+			 border-top:2px solid #0ff
+			}
+			.aboutMe .say:after {
+			 width:70px;
+			 height:70px;
+			 display:block;
+			 content:"";
+			 position:absolute;
+			 bottom:0;
+			 right:0;
+			 border-right:2px solid #0ff;
+			 border-bottom:2px solid #0ff
+			}
+			.aboutMe .say p {
+			 width:100%;
+			 text-align:center;
+			 line-height:30px;
+/*			 display:none*/
+			}
+			/*第三页*/
+			#section3{
+				height: 95vh;
+				min-height: 700px;
+				width: 100%;
+				position: relative;
+			}
+			#section3 .container{
+				min-width: 750px;
+				max-width: 1170px;
+				margin: 0 auto;
+			}
+			#section3 .mask {
+				 background:url(img/bg4.jpg) no-repeat center center;
+				 background-attachment:fixed;
+				 opacity:.2;
+				}
+			.skill {
+			 overflow:hidden;
+			 height:100%
+			}
+			.skill h1 {
+			 width:100%;
+			 height:50px;
+			 margin-top:160px;
+			 text-align:center;
+			 line-height:50px
+			}
+			.skill>p {
+			 overflow:hidden;
+			 /*width:0;
+			 height:0;*/
+			 text-align:center;
+			 margin:0 auto 5vh;
+			 border-top:2px solid brown;
+			 line-height:30px;
+			 
+			 width: 200px;
+			 height: 50px;
+			 transition-timing-function: ease-in;
+			 transition-duration: 1000ms;
+			}
+			.skill h4 {
+			 font-weight:400;
+			 text-align:center;
+/*			 width:0;*/
+			 margin:0 auto;
+			 line-height:25px;
+			 font-size:15px;
+			 overflow:hidden;
+			 
+			 width: 100%;
+			 transition-duration: 1000ms;
+			}
+			.row{
+				width: 100%;
+				margin: 0 auto 0;
+			}
+			.skill .list {
+				height:230px;
+				perspective:800px;
+				transform-style:preserve-3d;
+				margin-top:10vh;
+				width: 16.66666667%;
+				float: left;
+				position: relative;
+				min-height: 1px;
+				padding-right: 15px;
+				padding-left: 15px;
+			}
+			.skill .list div {
+				box-shadow:2px 2px 10px gold,2px 2px 10px purple;
+				width:80%;
+				height:95%;
+				text-align:center;
+				background:rgba(0,0,0,.5);
+				border-radius:10px;
+				position:absolute;
+				left:15px;
+			    top:0;
+				transition:1s;
+				backface-visibility:hidden
+			}
+			.skill .list .back {
+			 	transform:rotateY(180deg) /*旋转到页面的背面*/
+			}
+			.skill .list:hover .front {
+			 	transform:rotateY(-180deg)
+			}
+			.skill .list:hover .back {
+			 	transform:rotateY(0)
+			}
+			.skill .list .front img {
+			 	margin-top:20px
+			}
+			.skill .list .front p {
+			 	font:17px/80px arial;
+			 	margin-bottom:10px
+			}
+			@keyframes rotate {
+			 0% {
+			  	transform:rotate(0)
+			 }
+			 100% {
+			 	transform:rotate(360deg)
+			 }
+			}
+			.skill .list .front i {
+			 	animation:1s rotate linear infinite;
+			 	display:inline-block;
+			 	width:24px;
+			 	height:24px;
+			 	background:url("img/ro.png")
+			}
+			.skill .list .back ul li {
+				word-wrap:break-word;
+				margin-left:10px;
+				list-style-type:circle;
+				list-style-position:inside;
+				line-height:2em;
+				text-align:left;
+				font-size:13px
+			}
+			/*第四页*/
+			#section4{
+				height: 100vh;
+				min-height: 700px;
+				width: 100%;
+				position: relative;
+			}
+			#section4 .container{
+				min-width: 750px;
+				max-width: 1170px;
+				margin: 0 auto;
+			}
+			.demo {
+				 overflow:hidden;
+				 height:100%
+			}
+			.demo h1 {
+				 width:100%;
+				 height:50px;
+				 margin-top:140px;
+				 text-align:center;
+				 line-height:50px
+			}
+			.demo>p {
+				 /*width:0;
+				 height:0;*/
+				 text-align:center;
+				 margin:3px auto 3vh;
+				 border-top:2px solid brown;
+				 line-height:30px;
+				 width: 200px;
+				 height: 50px;
+				 transition-timing-function: ease-in;
+			}
+			.demo h4 {
+			 font-weight:400;
+			 text-align:center;
+			/*width:0;*/
+			 margin:1vh auto 6vh auto;
+			 line-height:25px;
+			 font-size:15px;
+			 overflow:hidden;
+			 
+			 width: 100%;
+			 transition-duration: 1000ms;
+			}
+			.col1{
+				width: 25%;
+				float: left;
+				position: relative;
+				text-align: center;
+			}
+			#section4 .container .demo > div{
+		    padding: 10px;
+		    transition: all 0.3s linear;
+			}
+			#section4 .container  .demo > div:hover{
+			    transition: all 0.3s linear;
+			    padding: 0;
+			}
+			#section4 .container .demo > div .zp-cover{
+			    position: absolute;
+			    display: none;
+			    width: 100%;
+			    top: 50%;
+			    margin-top: -46px;
+			    left: 0;
+			}
+			#section4 .container .demo > div .zp-cover h4{
+			    font-size: 16px;
+			    font-weight: 600;
+			    color: #ffffff;
+			}
+			
+			#section4 .container .demo > div .zp-cover p{
+			    color: #fff;
+			    font-size: 14px;
+			    text-align: center;
+			    margin: 10px 0;
+			    padding: 0 1em;
+			}
+			#section4 .container .demo > div .zp-cover img{
+			    width: 25px;
+			    height: 25px;
+			}
+			
+			#section4 .container .demo > div:hover .zp-cover{
+			    display: block;
+			    padding:  0 2em;
+			}
+			#section4 .container .demo > div:hover .imgbox img{
+			    -webkit-filter: brightness(0.3);
+			    filter: brightness(0.3);
+			}
+			
+			#section4 .container .demo >div .imgbox{
+			    width:100%;
+			    height: 0;
+			    padding-bottom: 100%;
+			    overflow: hidden;
+			    text-align: center;
+			}
+			#section4 .container .imgbox img{
+			    width: 100%;
+			    transition: all 0.3s ease;
+			}
+			.section .mask {
+				 position:absolute;
+				 left:0;
+				 top:0;
+				 bottom:0;
+				 right:0;
+				 z-index:-1
+			}
+			#au{
+				display: inline-block;
+				width: 60px;
+				height: 50px;
+				text-align: center;
+			}
+			#au i {
+				margin:20px 5px 0 0;
+				width:13px;
+				height:13px;
+				display:inline-block;
+				background:url("img/au2.png") no-repeat;
+			}
+			#au b {
+				width:16px;
+				height:13px;
+				display:inline-block;
+				background:url("img/au4.gif") no-repeat center center;
+			}
+			#canvas{
+			position: fixed;
+			left: 0px;
+			right: 0px;
+			top: 0px;
+			bottom: 0px;
+			z-index: -2;
+			}	
+		</style>
+	</head>
+	<body>
+		<div class="content">
+			<div id="section1">
+				<div id="top" title="顶部">
+					<img src="img/top.png" alt="" />
+				</div>
+				<div id="self-introduction">
+                    <h1 class="fade">Hello, I'm Gavin</h1>
+                    <h3 class="fade">一个拥有梦想的前端爱好者</h3>
+				</div>
+				<div class="bg-img">
+					<div></div>
+					<div></div>
+					<div></div>
+					<div></div>
+				</ul>
+			</div>
+		</div>
+
+			<div id="section2" class="section">			
+			<!--导航条-->
+            <div id="nav-bar" class="bar">
+                    <div class="nav-container">
+                        <a href="#">
+                            Gavin的博客
+                        </a>
+                        <div id="au">
+                        	<i></i>
+                        	<b></b>
+                        </div>
+                        <audio id="audio" src="music/zoe.mp3" loop="loop" autoplay="autoplay"></audio>
+                        <ul class="nav-ul">
+                        	<li>首页</li>
+                            <li>关于</li>
+                            <li>技能</li>
+                            <li>作品</li>
+                        </ul>
+                    </div>
+                </div>					
+				<div class="container">
+					<div class="aboutMe">
+						<h1>关于我</h1>
+						<p>-ABOUT ME-</p>
+						<div class="table clearfix">
+							<div class="rol">
+								<i></i>
+								<p>学历</p>
+								<p>本科</p>
+							</div>
+							<div class="rol">
+								<i></i>
+								<p>年龄</p>
+								<p>22岁</p>								
+							</div>
+							<div class="rol">
+								<i></i>
+								<p>坐标</p>
+								<p>合肥</p>
+							</div>
+							<div class="rol">
+								<i></i>
+								<p>状态</p>
+								<p>求职</p>
+							</div>
+						</div>
+						<div class="say">
+							<p class="said">2018届应届生</p>
+							<p>热爱互联网开发，代码强迫症患者</p>
+							<p>具有高效的自主学习能力和问题解决能力</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="section3" class="section">
+				<div class="mask">
+					
+				</div>
+				<div class="container">
+					
+					<div class="skill">
+						<h1>技能</h1>
+						<p>-WEB SKILL-</p>
+						<h4>前端的知识面非常广泛,吃透它需要具有持之以恒的精神。而在前端开发的学习工作中，重中之重就是对于原生JavaScript的理解和把握，从而在此基础上学习新的框架（React、Vue、Node等）。</h4>
+						<div class="row">
+							<div class="list list1">
+								<div class="front">
+									<img src="img/c1.png"/>
+									<p>HTML</p>
+									<i></i>
+								</div>
+								<div class="back">
+									<ul class="small">
+									<li>深刻理解Web标准</li>
+									<li>熟练运用html标签</li>
+									<li>掌握html5如canvas,localStorage,navigator等新特性</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="list list2">
+							<div class="front">
+								<img src="img/c2.png">
+								<p>CSS</p>
+								<i></i>
+							</div>
+							<div class="back">
+								<ul>
+									<li>熟练运用css及css3新属性</li>
+									<li>初步掌握浏览器兼容性</li>
+									<li>掌握@keyframes制作动画效果</li>								
+								</ul>							
+							</div>							
+						</div>
+						<div class="list list3">
+							<div class="front">
+								<img src="img/c3.png">
+								<p>JavaScript</p>
+								<i></i>
+							</div>
+							<div class="back">
+								<ul >
+									<li>掌握原生JS的编程</li>
+									<li>注重JavaScript性能优化</li>
+									<li>对ES5、ES6新特性有一定了解</li>								
+								</ul>							
+							</div>
+						</div>
+						<div class="list list4">
+							<div class="front">
+								<img src="img/c4.png">
+								<p>AJAX</p>
+								<i></i>
+							</div>
+							<div class="back">
+								<ul>
+									<li>初步理解ajax</li>
+									<li>理解ajax跨域解决方案JSONP</li>
+								</ul>
+							</div>
+						</div>
+						<div class="list list5">
+							<div class="front">
+								<img src="img/c5.png">
+								<p>Bootstrap</p>
+								<i></i>
+							</div>
+							<div class="back">
+								<ul>
+									<li>熟悉Bootstrap样式和组件的书写</li>
+									<li>熟练运用其处理响应式页面</li>
+									<li>明白媒体查询的原理并灵活运用</li>
+								</ul>							
+							</div>
+						</div>
+						<div class="list list6">
+							<div class="front">
+							<img src="img/c7.png">
+								<p>jQuery</p>
+								<i></i>
+							</div>
+							<div class="back">
+								<ul>
+									<li>熟练掌握jQuery强大的选择器</li>
+									<li>利用jQuery实现事件交互</li>
+									<li>实现常见的动画特效</li>
+								</ul>							
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+			<div id="section4" class="section">
+				<div class="container">
+					<div class="demo">
+						<h1>作品</h1>
+						<p>-DEMO-</p>
+						<h4>写js前端功能的时候，我的宗旨是能手写就手写，不依赖插件。手写代码更简洁高效，也更能提升自己技术。</h4>
+  						<div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/01.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="cart.html" target="_blank">
+	                            <div class="zp-cover">
+	                                <h4>商城类页面</h4>
+	                                <p>购物车结算jq，订单的选择或删除、金额的计算。</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+	                    <div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/06.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="http://www.cbecm.com/Analysis/Gametest/pc_test" target="_blank">
+	                            <div class="zp-cover" style="top: 45%">
+	                                <h4>测试类页面</h4>
+	                                <p>AJAX获取后台数据，用数组读取选项与题目。记录测试者的选项返给后台。</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+	                    <div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/02.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="http://www.cbecm.com/Live/Index/index" target="_blank">
+	                            <div class="zp-cover">
+	                                <h4>直播类页面</h4>
+	                                <p>直播页面响应式，css3 jq运用较多</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+	                    <div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/03.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="http://www.cbecm.com/Anchor/Anchor/anchor" target="_blank">
+	                            <div class="zp-cover">
+	                                <h4>列表类页面</h4>
+	                                <p>无缝轮播手写，花瓣动画。</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+	                    <div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/04.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="http://www.cbecm.com/Anchor/Anchor/anchor_detai?id=RjA4QzAyMzUtNERCNC04MjM1LUY2NTQtQUM2NTdGMkQ4OTcx" target="_blank">
+	                            <div class="zp-cover">
+	                                <h4>详情类页面</h4>
+	                                <p>视频播放，富文本编辑器手写。</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+	                    <div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/05.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="http://www.cbecm.com/Home/Index/index" target="_blank">
+	                            <div class="zp-cover">
+	                                <h4>官网类首页</h4>
+	                                <p>多数据响应式网页，能兼容不同大小电脑分辨率</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+	
+	                    <div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/07.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="http://www.cbecm.com/Live/Index/m_index" target="_blank">
+	                            <div class="zp-cover">
+	                                <h4>移动端页面</h4>
+	                                <p>列表页，兼容安卓、ios、平板</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+	                    <div class="col1">
+	                        <div class="imgbox">
+	                            <img src="img/08.jpg" alt="作品配图">
+	                        </div>
+	                        <a href="drip.html" target="_blank">
+	                            <div class="zp-cover">
+	                                <h4>我的技术博客</h4>
+	                                <p>自己平时的知识点积累~</p>
+	                                <img src="img/search.png" alt="查看">
+	                            </div>
+	                        </a>
+	                    </div>
+
+					</div>
+				</div>
+			</div>
+		<canvas id="canvas"></canvas>
+		<script src="js/canvasPentastar.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/1.7/jquery.min.js"></script>
+		
+		<script>
+			new CanvasStar().init();
+			$(function(){
+				var index = 1
+				$('.bg-img div:nth-child('+index+')').addClass('show')
+				index += 1
+				setInterval(function(){
+					$('.bg-img div:nth-child('+index+')').addClass('show').siblings().removeClass('show')
+					index ++
+					index = index > 4 ? 1 : index
+				},6000)
+				$('#self-introduction>h1').addClass('fadeactive')
+				setTimeout(function(){
+				$('#self-introduction>h3').addClass('fadeactive')
+				},500)
+				
+			    var top1 = $("#section2").offset().top
+			    var top2 = $("#section3").offset().top
+			    var top3 = $("#section4").offset().top
+			    
+			    
+			    
+			    //回到顶部
+			    $("#top").click(function () {
+			        $('html,body').stop().animate({
+			            scrollTop: 0
+			        }, 700);
+			    });
+			    showScroll();
+			    var min_height = document.documentElement.clientHeight /2;
+			    function showScroll() {
+			        $(window).scroll(function() {
+			            var s = $(window).scrollTop();
+			            s > min_height ? $('#top').fadeIn() : $('#top').fadeOut();
+			        });
+			    }				
+			    //导航点击
+			    $(".nav-ul li").bind("click", function () {
+			        var index = $(this).index();//获取序号 从0开始
+			        if(index > 0){
+			        	var _top = $(".section").eq(index-1).offset().top; //获取对应div距顶高度	
+			        }else{
+			        	var _top = 0
+			        }
+			        moveTo(_top);
+			    });				
+			    function moveTo(_top){
+			        $('html,body').animate({
+			            scrollTop: _top
+			        }, 500);
+			    }
+			    $('#au i').toggle(function(){
+			    	$(this).css('background',"rgba(0, 0, 0, 0) url('img/au1.png') repeat scroll 0% 0%")
+			    	$(this).next().css("background","rgba(0, 0, 0, 0) url('img/au3.png') no-repeat scroll center center")
+			    	$('#audio')[0].pause()
+			    },function(){
+			    	$(this).css('background',"rgba(0, 0, 0, 0) url('img/au2.png') repeat scroll 0% 0%")
+			    	$(this).next().css("background","rgba(0, 0, 0, 0) url('img/au4.gif') no-repeat scroll center center")
+			    	$('#audio')[0].play()
+			    })
+			    
+			    //页面滚动
+			    $(window).scroll(function(){
+			    	var s = $(window).scrollTop();
+        			s > top1 ? $('#nav-bar').addClass("fixed") : $('#nav-bar').removeClass("fixed");
+			    })
+			})
+		</script>
+	</body>
+</html>
